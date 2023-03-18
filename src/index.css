@@ -1,4 +1,6 @@
+
 html,
+
 body {
   margin: 0;
   font-family: Inter, sans-serif;
@@ -9,22 +11,27 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  color: #080808ea;
+  color: #FFB11B ;
   overflow-x: hidden;
 }
+
 #root {
   min-height: 100vh;
   display: flex;
 }
 
 h1 {
+  font-family: 'Rajdhani', sans-serif;
   font-size: 5rem;
+  text-shadow: 2px 2px 2px #ce3c37;
 }
 h2 {
+  font-family: 'Rajdhani', sans-serif;
   font-size: 3rem;
 }
 @media screen and (max-width: 768px) {
   h1 {
+    font-family: 'Rajdhani', sans-serif;
     font-size: 3rem;
   }
 }
