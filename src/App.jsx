@@ -142,7 +142,9 @@ const memberList = useMemo(() => {
   if (!address) {
     return (
       <div className="landing">
+         <h3>This DAO is still under development</h3>
         <h1>CubeBase DAO</h1>
+       
         <div className="btn-hero">
           <ConnectWallet />
         </div>
@@ -156,7 +158,9 @@ if (hasClaimedNFT) {
   return (
     <div className="member-page">
       <h1>CubeBase DAO Dashboard</h1>
+      <h3>This DAO is still under development</h3>
       <p>Congratulations on being a member</p>
+      
       <div>
         <div>
           <h2>Member List</h2>

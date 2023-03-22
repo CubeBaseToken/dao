@@ -29,6 +29,12 @@ h2 {
   font-family: 'Rajdhani', sans-serif;
   font-size: 3rem;
 }
+h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.5rem;
+  color:rgb(230, 5, 5);
+  background-color: aliceblue;
+}
 @media screen and (max-width: 768px) {
   h1 {
     font-family: 'Rajdhani', sans-serif;
