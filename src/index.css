@@ -7,7 +7,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #070707;
-  background-image:url(dao.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.727),rgba(0, 0, 0, 0.7)) , url(dao.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -23,7 +23,7 @@ body {
 h1 {
   font-family: 'Rajdhani', sans-serif;
   font-size: 5rem;
-  text-shadow: 2px 2px 2px #ce3c37;
+  text-shadow: 2px 2px 2px #bebebe;
 }
 h2 {
   font-family: 'Rajdhani', sans-serif;
@@ -107,7 +107,7 @@ h2 {
 
 .member-page form h5 {
   margin-top: 0;
-  color: #7700ee;
+  color: #030201;
 }
 
 .member-page form .card > div {
