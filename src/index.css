@@ -13,6 +13,7 @@ body {
   background-position: center;
   color: #FFB11B ;
   overflow-x: hidden;
+  
 }
 
 #root {
@@ -23,7 +24,9 @@ body {
 h1 {
   font-family: 'Rajdhani', sans-serif;
   font-size: 5rem;
-  text-shadow: 2px 2px 2px #bebebe;
+  color: rgba(255, 255, 255, 0);
+  text-shadow: 0 0 2px #ffffff, 0 0 15px #f5c013, 0 0 20px #f09104, 0 0 40px #46fdff;
+ 
 }
 h2 {
   font-family: 'Rajdhani', sans-serif;
