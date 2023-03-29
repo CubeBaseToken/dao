@@ -315,7 +315,7 @@ if (hasClaimedNFT) {
 // Render mint nft screen.
 return (
   <div className="mint-nft">
-    <h1>Mint your free 🍪DAO Membership NFT</h1>
+    <h2>Mint your free CubeBase DAO NFT membership</h2>
     <div className="btn-hero">
       <Web3Button
         contractAddress={editionDropAddress}
