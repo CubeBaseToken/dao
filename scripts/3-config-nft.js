@@ -3,7 +3,7 @@ import { readFileSync } from "fs";
 
 (async () => {
   try {
-    const editionDrop = await sdk.getContract("0x4D893bfB43181F5A0f5d5544Ad16bD2742a8A7d3", "edition-drop"); //collection smart contract
+    const editionDrop = await sdk.getContract("0xD0066d009ec8BBaA3606C188FF65FD94ec8C297A", "edition-drop"); //collection smart contract
     await editionDrop.createBatch([
       {
         name: "Acces Cube",
