@@ -7,7 +7,7 @@ import sdk from "./1-initialize-sdk.js";
       name: "CubeBase DAO",
 
       // This is the location of our governance token, our ERC-20 contract! This is my TTT Token on BSC
-      voting_token_address: "0xf18Bed0D337902783073Aa317bbb3924CB011b7A",
+      voting_token_address: "0x7eFA96C049716C26b52FCdA70D7d7BAF4Dd61cA5",
 
       // These parameters are specified in number of blocks. 
       // Assuming block time of around 13.14 seconds (for Ethereum)

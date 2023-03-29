@@ -3,9 +3,9 @@ import sdk from "./1-initialize-sdk.js";
 (async () => {
   try {
     // This is our governance contract.
-    const vote = await sdk.getContract("0xFDb3165dDdfE0C7c2550e61086C604b67173A99e", "vote");
+    const vote = await sdk.getContract("0xB59216a2e34F30c17763880ba1164aacdA9e544b", "vote");
     // This is our ERC-20 contract.
-    const token = await sdk.getContract("0xf18Bed0D337902783073Aa317bbb3924CB011b7A", "token");
+    const token = await sdk.getContract("0x7eFA96C049716C26b52FCdA70D7d7BAF4Dd61cA5", "token");
     // Give our treasury the power to mint additional token if needed.
     await token.roles.grant("minter", vote.getAddress());
 
@@ -22,9 +22,9 @@ import sdk from "./1-initialize-sdk.js";
 
   try {
     // This is our governance contract.
-    const vote = await sdk.getContract("0xFDb3165dDdfE0C7c2550e61086C604b67173A99e", "vote");
+    const vote = await sdk.getContract("0xB59216a2e34F30c17763880ba1164aacdA9e544b", "vote");
     // This is our ERC-20 contract.
-    const token = await sdk.getContract("0xf18Bed0D337902783073Aa317bbb3924CB011b7A", "token");
+    const token = await sdk.getContract("0x7eFA96C049716C26b52FCdA70D7d7BAF4Dd61cA5", "token");
     // Grab our wallet's token balance, remember -- we hold basically the entire supply right now!
     const ownedTokenBalance = await token.balanceOf(
       process.env.WALLET_ADDRESS
