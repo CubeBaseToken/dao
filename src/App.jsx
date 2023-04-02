@@ -1,11 +1,45 @@
-import { useAddress, ConnectWallet, Web3Button, useContract, useNFTBalance } from '@thirdweb-dev/react';
+import { ThirdwebNftMedia, useContractMetadata, useNFTs, useAddress, ConnectWallet, Web3Button, useContract,useNFTBalance } from '@thirdweb-dev/react';
 import { useState, useEffect, useMemo } from 'react';
 import { AddressZero } from "@ethersproject/constants";
 
 
-
 const App = () => {
-  
+//Display User's NFT's
+
+//Display CubeBase NFT Collection
+const Nfts = () => {
+  const { contract } = useContract('0x234A6231fd817b2007253b6c7F672DA141E7ecE8');
+  const { data: nfts, isLoading: loadingNfts, error: errorNfts } = useNFTs(contract);
+
+  const { data: metadata, isLoading: loadingMetadata, error: errorMetadata } = useContractMetadata(contract);
+
+  if (errorNfts || errorMetadata) {
+    return <p>Error loading data</p>;
+  }
+
+  return (
+    <main className="container">
+      {!loadingMetadata && metadata &&
+        <header className="heading">
+          <div>
+           <h4>{metadata.name}</h4>
+          </div>
+        </header>
+      }
+
+      {!loadingNfts ?
+      (<div className="gallery">
+        {nfts?.map(e =>
+          <div className="nftcard">
+            <ThirdwebNftMedia metadata={e.metadata} width={300} height={300} />
+          </div>
+        ) || []}
+      </div>)
+      : (<p className="loading">Loading...</p>) }
+    </main>
+  );
+}
+//Display CubeBase NFT Collection
   // Use the hooks thirdweb give us.
   const address = useAddress();
   console.log("👋 Address:", address);
@@ -13,12 +47,10 @@ const App = () => {
   const editionDropAddress = "0x4D893bfB43181F5A0f5d5544Ad16bD2742a8A7d3";
   const { contract: editionDrop } = useContract(editionDropAddress, "edition-drop");
 // Initialize our token contract
-const { contract: token } = useContract('0xD4755d96c59f21D60Ca2551A9897fa6f7Bc7228E', 'token');
+const { contract: token } = useContract("0xEcB030adf2A8d3eF53194Fe5491748110dC93247", "token");
 const { contract: vote } = useContract("0xB59216a2e34F30c17763880ba1164aacdA9e544b", "vote");
   // Hook to check if the user has our NFT
   const { data: nftBalance } = useNFTBalance(editionDrop, address, "0")
-  
-
   const hasClaimedNFT = useMemo(() => {
     return nftBalance && nftBalance.gt(0)
   }, [nftBalance])
@@ -83,22 +115,75 @@ useEffect(() => {
   checkIfUserHasVoted();
 
 }, [hasClaimedNFT, proposals, address, vote]);
+// This useEffect grabs all the addresses of our members holding our NFT.
+useEffect(() => {
+  if (!hasClaimedNFT) {
+    return;
+  }
 
-//marketing wallet balance
+  // Just like we did in the 7-airdrop-token.js file! Grab the users who hold our NFT
+  // with tokenId 0.
+  const getAllAddresses = async () => {
+    try {
+      const memberAddresses =
+        await editionDrop?.history.getAllClaimerAddresses(0);
+      setMemberAddresses(memberAddresses);
+      console.log('🚀 Members addresses', memberAddresses);
+    } catch (error) {
+      console.error('failed to get member list', error);
+    }
+  };
+  getAllAddresses();
+}, [hasClaimedNFT, editionDrop?.history]);
 
+// This useEffect grabs the # of token each member holds.
+useEffect(() => {
+  if (!hasClaimedNFT) {
+    return;
+  }
 
+  const getAllBalances = async () => {
+    try {
+      const amounts = await token?.history.getAllHolderBalances();
+      setMemberTokenAmounts(amounts);
+      console.log('👜 Amounts', amounts);
+    } catch (error) {
+      console.error('failed to get member balances', error);
+    }
+  };
+  getAllBalances();
+}, [hasClaimedNFT, token?.history]);
+
+// Now, we combine the memberAddresses and memberTokenAmounts into a single array
+const memberList = useMemo(() => {
+  return memberAddresses.map((address) => {
+    // We're checking if we are finding the address in the memberTokenAmounts array.
+    // If we are, we'll return the amount of token the user has.
+    // Otherwise, return 0.
+    const member = memberTokenAmounts?.find(
+      ({ holder }) => holder === address,
+    );
+
+    return {
+      address,
+      tokenAmount: member?.balance.displayValue || '0',
+    };
+  });
+}, [memberAddresses, memberTokenAmounts]);
 
   // This is the case where the user hasn't connected their wallet
   // to your web app. Let them call connectWallet.
   if (!address) {
     return (
       <div className="landing">
-         <h3>This DAO is still under development</h3>
-        <h1>CubeBase DAO</h1>
+       <h1>CubeBase DAO</h1>
+       
+        
        
         <div className="btn-hero">
           <ConnectWallet />
         </div>
+        <h4>version 1.0</h4>
       </div>
     );
   }
@@ -109,16 +194,23 @@ if (hasClaimedNFT) {
   return (
     <div className="member-page">
       <h1>CubeBase DAO Dashboard</h1>
-      <h3>This DAO is still under development</h3>
+      <h4>version 1.0</h4>
       <p>Congratulations on being a member</p>
-      
       <div>
-        <div>
-          
-          
-          
-        </div>
-        <div>
+          <div>
+            <h2>NFT collection</h2>
+                          <Nfts></Nfts>
+              {/* {memberList.map((member) => { 
+                  return (
+                    <tr key={member.address}>
+                      <td>{shortenAddress(member.address)}</td>
+                      <td>{member.tokenAmount}</td>
+                    </tr>
+                  );
+                })} */}
+             
+          </div>
+          <div>
           <h2>Active Proposals</h2>
           <form
             onSubmit={async (e) => {
